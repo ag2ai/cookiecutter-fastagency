@@ -8,11 +8,15 @@ version = "0.1.0"
 name = "{{cookiecutter.project_slug}}"
 
 dependencies = [
-    "fastagency[autogen,mesop]>=0.3.0.dev2",
-
+    "fastagency[autogen,mesop,fastapi]>=0.3.0.dev2",
 ]
 
 [project.optional-dependencies]
+server = [
+    "uvicorn==0.31.0",
+    "gunicorn==23.0.0",
+]
+
 lint = [
     "black==24.10.0",
     "ruff==0.6.9",
@@ -32,7 +36,10 @@ testing = [
     "pytest-asyncio==0.24.0",
 ]
 
-dev = ["{{cookiecutter.project_slug}}[lint,static-analysis,testing]"]
+dev = ["{{cookiecutter.project_slug}}[lint,static-analysis,testing,server]"]
+
+[tool.hatch.build.targets.wheel]
+only-include = ["{{cookiecutter.project_slug}}"]
 
 [tool.pytest.ini_options]
 filterwarnings =["ignore::DeprecationWarning"]

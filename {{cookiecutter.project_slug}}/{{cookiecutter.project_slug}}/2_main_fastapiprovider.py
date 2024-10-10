@@ -37,4 +37,4 @@ def read_root():
 
 
 # start the provider with the following command
-# uvicorn 2_main_fastapiprovider:app --host 0.0.0.0 --port 8008 --reload
+# uvicorn {{cookiecutter.project_slug}}.2_main_fastapiprovider:app --host 0.0.0.0 --port 8008 --reload

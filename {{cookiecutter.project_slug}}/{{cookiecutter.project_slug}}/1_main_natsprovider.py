@@ -78,4 +78,4 @@ def list_workflows():
 
 
 # start the provider with either command
-# uvicorn 1_main_natsprovider:app --reload
+# uvicorn {{cookiecutter.project_slug}}.1_main_natsprovider:app --reload
