@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  python-3.10-{{cookiecutter.project_slug}}:  # nosemgrep
+    image: mcr.microsoft.com/devcontainers/python:3.10
+    container_name: {{cookiecutter.project_slug}}-${USER}-python-3.10
+    volumes:
+      - ../:/workspaces/{{cookiecutter.project_slug}}:cached
+    command: sleep infinity
+    environment:
+      - NATS_URL=nats://{{cookiecutter.project_slug}}-${USER}-nats-py310:4222
+    env_file:
+      - ./devcontainer.env
+    networks:
+      - {{cookiecutter.project_slug}}-network
+  nats-{{cookiecutter.project_slug}}:  # nosemgrep
+    image: nats:latest
+    container_name: {{cookiecutter.project_slug}}-${USER}-nats-py310
+    # ports:
+      # - "${PORT_PREFIX}4222:4222"
+      # - "${PORT_PREFIX}9222:9222"
+    volumes:
+      - ./nats_server.conf:/etc/nats/server.conf
+    command: [ "--config", "/etc/nats/server.conf" ]
+    env_file:
+      - ./devcontainer.env
+    networks:
+      - {{cookiecutter.project_slug}}-network
+
+networks:
+  {{cookiecutter.project_slug}}-network:
+    name: {{cookiecutter.project_slug}}-${USER}-network

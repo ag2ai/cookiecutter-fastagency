@@ -1,0 +1,5 @@
+{
+    "username": "github-username",
+    "project_name": "My FastAgency App",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}"
+}
