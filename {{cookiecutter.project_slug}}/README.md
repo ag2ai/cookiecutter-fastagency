@@ -1,6 +1,6 @@
 # {{cookiecutter.project_name}}
 
-This repository contains a [`FastAgency`](https://github.com/airtai/fastagency) application which uses [NATS](https://nats.io/), [FastAPI](https://fastapi.tiangolo.com/), and [Mesop](https://google.github.io/mesop/). Below, you'll find a guide on how to run the application.
+This repository contains a [`FastAgency`](https://github.com/airtai/fastagency) application which uses {% if cookiecutter.app_type == "console" %}Console{% else %}{% if "nats" in cookiecutter.app_type %}[NATS](https://nats.io/), {% endif %}{% if "fastapi" in cookiecutter.app_type %}[FastAPI](https://fastapi.tiangolo.com/), and {% endif %}{% if "mesop" in cookiecutter.app_type %}[Mesop](https://google.github.io/mesop/){% endif %}{% endif %}. Below, you'll find a guide on how to run the application.
 
 ## Running FastAgency Application
 
@@ -11,7 +11,26 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 2. Open the `.devcontainer/devcontainer.env` file and set your `OPENAI_API_KEY`. Alternatively, you can skip this step and set the `OPENAI_API_KEY` later in the terminal of the devcontainer.
 
 3. Press `Ctrl+Shift+P` or `Cmd+Shift+P` and select the option `Dev Containers: Rebuild and Reopen in Container`. This will open the current repository in a [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) using Docker and will install all the requirements to run the example application.
+{% if cookiecutter.app_type == "console" %}
+4. The `main.py` file defines the autogen workflows and the `ConsoleUI`. In a devcontainer terminal, run the following command:
 
+   ```bash
+   fastagency run
+   ```
+{% elif cookiecutter.app_type == "mesop" %}
+4. The `main.py` file defines the autogen workflows and the `MesopUI`. In a devcontainer terminal, run the following command:
+
+   ```bash
+   fastagency run
+   ```
+
+   Or you can use Python WSGI HTTP server like [gunicorn](https://gunicorn.org/) which is the preferred way to run the Mesop application. First, you need to install it using package manager such as `pip` and then run it as follows:
+
+   ```bash
+   pip install gunicorn
+   gunicorn main:app
+   ```
+{% endif %}
 4. The `1_main_natsprovider.py` file defines the autogen workflows and includes the `NatsAdapter` to exchange the workflow conversation as messages via NATS. In a devcontainer terminal, run the following command:
 
    ```bash
