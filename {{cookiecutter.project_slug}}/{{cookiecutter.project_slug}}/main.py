@@ -5,11 +5,8 @@ from autogen.agentchat import ConversableAgent
 
 from fastagency import UI, FastAgency
 from fastagency.runtimes.autogen import AutoGenWorkflows
-{% if cookiecutter.app_type == "console" %}
-from fastagency.ui.console import ConsoleUI
-{% elif cookiecutter.app_type == "mesop" %}
-from fastagency.ui.mesop import MesopUI
-{% endif %}
+{% if cookiecutter.app_type == "console" %}from fastagency.ui.console import ConsoleUI{% elif cookiecutter.app_type == "mesop" %}from fastagency.ui.mesop import MesopUI{% endif %}
+
 
 llm_config = {
     "config_list": [
@@ -55,8 +52,4 @@ def simple_workflow(
     return chat_result.summary  # type: ignore[no-any-return]
 
 
-{% if cookiecutter.app_type == "console" %}
-app = FastAgency(provider=wf, ui=ConsoleUI(), title="Learning Chat")
-{% elif cookiecutter.app_type == "mesop" %}
-app = FastAgency(provider=wf, ui=MesopUI(), title="Learning Chat")
-{% endif %}
+app = FastAgency(provider=wf, ui={% if cookiecutter.app_type == "console" %}ConsoleUI{% elif cookiecutter.app_type == "mesop" %}MesopUI{% endif %}(), title="Learning Chat")
