@@ -31,7 +31,7 @@ testing = [
     "pytest-asyncio==0.24.0",
 ]
 
-dev = ["{{cookiecutter.project_slug}}[lint,static-analysis,testing,server]"]
+dev = ["{{cookiecutter.project_slug}}[lint,static-analysis,testing]"]
 
 [tool.hatch.build.targets.wheel]
 only-include = ["{{cookiecutter.project_slug}}"]
