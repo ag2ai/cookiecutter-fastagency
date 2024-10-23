@@ -4,9 +4,11 @@
         "./docker-compose.yml"
     ],
     "service": "python-3.10-{{cookiecutter.project_slug}}",
+    {% if "nats" in cookiecutter.app_type %}
     "forwardPorts": [
         "{{cookiecutter.project_slug}}-${containerEnv:CONTAINER_PREFIX}-nats-py310:9222"
     ],
+    {% endif %}
     "secrets": {
         "OPENAI_API_KEY": {
             "description": "This key is needed if you are working on OpenAI-related code. Leave it blank if not required. You can always set it later as an environment variable in the codespace terminal."
