@@ -10,7 +10,7 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 
 2. Open the `.devcontainer/devcontainer.env` file and set your `OPENAI_API_KEY`. Alternatively, you can skip this step and set the `OPENAI_API_KEY` later in the terminal of the devcontainer.
 
-3. Press `Ctrl+Shift+P` or `Cmd+Shift+P` and select the option `Dev Containers: Rebuild and Reopen in Container`. This will open the current repository in a [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) using Docker and will install all the requirements to run the example application.
+3. Press `Ctrl+Shift+P`(for windows/linux) or `Cmd+Shift+P`(for mac) and select the option `Dev Containers: Rebuild and Reopen in Container`. This will open the current repository in a [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) using Docker and will install all the requirements to run the example application.
 {% if "nats" in cookiecutter.app_type %}4. This example needs `NATS` to be up and running. `NATS` is automatically started by the devcontainer.{% endif %}
 {% if "nats" in cookiecutter.app_type %}5{% else %}4{% endif %}. The `workflow.py` file defines the autogen workflows. It is imported and used in the files that define the `UI`.
 {% if cookiecutter.app_type == "console" %}
