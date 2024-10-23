@@ -4,7 +4,8 @@ from fastagency import FastAgency
 from .workflow import wf
 
 
-
-
-
-app = FastAgency(provider=wf, ui={% if cookiecutter.app_type == "console" %}ConsoleUI{% elif cookiecutter.app_type == "mesop" %}MesopUI{% endif %}(), title="Learning Chat")
+app = FastAgency(
+    provider=wf,
+    ui={% if cookiecutter.app_type == "console" %}ConsoleUI{% elif cookiecutter.app_type == "mesop" %}MesopUI{% endif %}(),
+    title="{{cookiecutter.project_name}}",
+)
