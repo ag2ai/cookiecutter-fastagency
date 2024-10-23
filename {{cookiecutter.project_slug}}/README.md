@@ -6,13 +6,15 @@ This repository contains a [`FastAgency`](https://github.com/airtai/fastagency) 
 
 To run this [`FastAgency`](https://github.com/airtai/fastagency) application, follow these steps:
 
-1. To run the `FastAgency` application, you need an [OpenAI API Key](https://openai.com/index/openai-api/). Create one and set it as an environment variable in the terminal using the following command:
+1. To run the `FastAgency` application, you need an API key for any LLM. The most commonly used LLM is [OpenAI](https://platform.openai.com/docs/models). To use it, create an [OpenAI API Key](https://openai.com/index/openai-api/) and set it as an environment variable in the terminal using the following command:
 
    ```bash
    export OPENAI_API_KEY=paste_openai_api_key_here
    ```
 
-   Alternatively, you can skip this step and set the `OPENAI_API_KEY` later in the devcontainer's terminal.
+   If you want to use a different LLM provider, follow [this guide](https://fastagency.ai/latest/user-guide/runtimes/autogen/using_non_openai_models/).
+
+   Alternatively, you can skip this step and set the LLM API key as an environment variable later in the devcontainer's terminal.
 
 2. Open this folder in [vscode](https://code.visualstudio.com/) using the following command:
 
