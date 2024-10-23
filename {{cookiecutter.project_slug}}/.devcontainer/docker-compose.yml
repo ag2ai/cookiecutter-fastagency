@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  python-3.10-{{cookiecutter.project_slug}}:
-    image: mcr.microsoft.com/devcontainers/python:3.10
-    container_name: {{cookiecutter.project_slug}}-${USER}-python-3.10
+  python-3.12-{{cookiecutter.project_slug}}:
+    image: mcr.microsoft.com/devcontainers/python:3.12
+    container_name: {{cookiecutter.project_slug}}-${USER}-python-3.12
     volumes:
       - ../:/workspaces/{{cookiecutter.project_slug}}:cached
     command: sleep infinity
