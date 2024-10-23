@@ -9,7 +9,7 @@ services:
     command: sleep infinity
     {% if "nats" in cookiecutter.app_type %}
     environment:
-      - NATS_URL=nats://{{cookiecutter.project_slug}}-${USER}-nats-py310:4222
+      - NATS_URL=nats://{{cookiecutter.project_slug}}-${USER}-nats-py312:4222
     {% endif %}
     env_file:
       - ./devcontainer.env
@@ -18,7 +18,7 @@ services:
   {% if "nats" in cookiecutter.app_type %}
   nats-{{cookiecutter.project_slug}}:
     image: nats:latest
-    container_name: {{cookiecutter.project_slug}}-${USER}-nats-py310
+    container_name: {{cookiecutter.project_slug}}-${USER}-nats-py312
     # ports:
       # - "${PORT_PREFIX}4222:4222"
       # - "${PORT_PREFIX}9222:9222"
