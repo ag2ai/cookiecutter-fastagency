@@ -1,5 +1,5 @@
 {
     "project_name": "My FastAgency App",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-    "app_type": ["console", "mesop", "fastapi+mesop", "nats+fastapi+mesop"]
+    "app_type": ["fastapi+mesop", "mesop", "console", "nats+fastapi+mesop"]
 }
