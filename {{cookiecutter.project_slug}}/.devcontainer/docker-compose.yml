@@ -1,24 +1,24 @@
 version: '3'
 
 services:
-  python-3.10-{{cookiecutter.project_slug}}:  # nosemgrep
-    image: mcr.microsoft.com/devcontainers/python:3.10
-    container_name: {{cookiecutter.project_slug}}-${USER}-python-3.10
+  python-3.12-{{cookiecutter.project_slug}}:
+    image: mcr.microsoft.com/devcontainers/python:3.12
+    container_name: {{cookiecutter.project_slug}}-${USER}-python-3.12
     volumes:
       - ../:/workspaces/{{cookiecutter.project_slug}}:cached
     command: sleep infinity
     {% if "nats" in cookiecutter.app_type %}
     environment:
-      - NATS_URL=nats://{{cookiecutter.project_slug}}-${USER}-nats-py310:4222
+      - NATS_URL=nats://{{cookiecutter.project_slug}}-${USER}-nats-py312:4222
     {% endif %}
     env_file:
       - ./devcontainer.env
     networks:
       - {{cookiecutter.project_slug}}-network
   {% if "nats" in cookiecutter.app_type %}
-  nats-{{cookiecutter.project_slug}}:  # nosemgrep
+  nats-{{cookiecutter.project_slug}}:
     image: nats:latest
-    container_name: {{cookiecutter.project_slug}}-${USER}-nats-py310
+    container_name: {{cookiecutter.project_slug}}-${USER}-nats-py312
     # ports:
       # - "${PORT_PREFIX}4222:4222"
       # - "${PORT_PREFIX}9222:9222"
