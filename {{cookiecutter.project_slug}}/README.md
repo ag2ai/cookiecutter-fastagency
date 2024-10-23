@@ -6,9 +6,19 @@ This repository contains a [`FastAgency`](https://github.com/airtai/fastagency) 
 
 To run this [`FastAgency`](https://github.com/airtai/fastagency) application, follow these steps:
 
-1. Open this folder with [vscode](https://code.visualstudio.com/).
+1. To run the `FastAgency` application, you need an [OpenAI API Key](https://openai.com/index/openai-api/). Create one and set it as an environment variable in the terminal using the following command:
 
-2. Open the `.devcontainer/devcontainer.env` file and set your `OPENAI_API_KEY`. Alternatively, you can skip this step and set the `OPENAI_API_KEY` later in the terminal of the devcontainer.
+   ```bash
+   export OPENAI_API_KEY=paste_openai_api_key_here
+   ```
+
+   Alternatively, you can skip this step and set the `OPENAI_API_KEY` later in the devcontainer's terminal.
+
+2. Open this folder in [vscode](https://code.visualstudio.com/) using the following command:
+
+   ```bash
+   code .
+   ```
 
 3. Press `Ctrl+Shift+P`(for windows/linux) or `Cmd+Shift+P`(for mac) and select the option `Dev Containers: Rebuild and Reopen in Container`. This will open the current repository in a [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) using Docker and will install all the requirements to run the example application.
 {% if "nats" in cookiecutter.app_type %}4. This example needs `NATS` to be up and running. `NATS` is automatically started by the devcontainer.{% endif %}
