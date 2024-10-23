@@ -28,4 +28,4 @@ def list_workflows() -> dict[str, Any]:
 
 
 # start the adapter with the following command
-# uvicorn main_1_{% if "nats" in cookiecutter.app_type %}nats{% else %}fastapi{% endif %}:app --reload
+# uvicorn {{cookiecutter.project_slug}}.main_1_{% if "nats" in cookiecutter.app_type %}nats{% else %}fastapi{% endif %}:app --reload

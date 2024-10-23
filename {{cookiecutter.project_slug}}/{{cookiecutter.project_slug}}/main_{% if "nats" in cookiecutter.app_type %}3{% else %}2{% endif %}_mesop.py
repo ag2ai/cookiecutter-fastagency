@@ -15,4 +15,4 @@ app = FastAgency(
 )
 
 # start the provider with the following command
-# gunicorn main_{% if "nats" in cookiecutter.app_type %}3{% else %}2{% endif %}_mesop:app -b 0.0.0.0:8888 --reload
+# gunicorn {{cookiecutter.project_slug}}.main_{% if "nats" in cookiecutter.app_type %}3{% else %}2{% endif %}_mesop:app -b 0.0.0.0:8888 --reload

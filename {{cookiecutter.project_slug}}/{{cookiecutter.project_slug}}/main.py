@@ -9,3 +9,6 @@ app = FastAgency(
     ui={% if cookiecutter.app_type == "console" %}ConsoleUI{% elif cookiecutter.app_type == "mesop" %}MesopUI{% endif %}(),
     title="{{cookiecutter.project_name}}",
 )
+
+# start the fastagency app with the following command
+# fastagency run {{cookiecutter.project_slug}}/main.py
