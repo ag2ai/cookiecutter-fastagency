@@ -9,7 +9,7 @@ from .workflow import wf
 {% if "nats" in cookiecutter.app_type %}
 nats_url = os.environ.get("NATS_URL", "nats://localhost:4222")
 user: str = "fastagency"
-password: str = os.environ.get("FASTAGENCY_NATS_PASSWORD", "fastagency_nats_password")  # type: ignore[assignment]
+password: str = os.environ.get("FASTAGENCY_NATS_PASSWORD", "fastagency_nats_password")
 
 adapter = NatsAdapter(provider=wf, nats_url=nats_url, user=user, password=password)
 

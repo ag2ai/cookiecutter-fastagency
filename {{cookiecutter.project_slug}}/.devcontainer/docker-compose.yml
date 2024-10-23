@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  python-3.10-{{cookiecutter.project_slug}}:  # nosemgrep
+  python-3.10-{{cookiecutter.project_slug}}:
     image: mcr.microsoft.com/devcontainers/python:3.10
     container_name: {{cookiecutter.project_slug}}-${USER}-python-3.10
     volumes:
@@ -16,7 +16,7 @@ services:
     networks:
       - {{cookiecutter.project_slug}}-network
   {% if "nats" in cookiecutter.app_type %}
-  nats-{{cookiecutter.project_slug}}:  # nosemgrep
+  nats-{{cookiecutter.project_slug}}:
     image: nats:latest
     container_name: {{cookiecutter.project_slug}}-${USER}-nats-py310
     # ports:
