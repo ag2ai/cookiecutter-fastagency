@@ -8,7 +8,7 @@ version = "0.1.0"
 name = "{{cookiecutter.project_slug}}"
 
 dependencies = [
-    "fastagency[autogen{% if cookiecutter.app_type != "console" %},mesop{% if "fastapi" in cookiecutter.app_type %},fastapi,server{% endif %}{% if "nats" in cookiecutter.app_type %},nats{% endif %}{% endif %}]>=0.3.0",
+    "fastagency[autogen{% if cookiecutter.app_type != "console" %},mesop,server{% if "fastapi" in cookiecutter.app_type %},fastapi{% endif %}{% if "nats" in cookiecutter.app_type %},nats{% endif %}{% endif %}]>=0.3.0",
 ]
 
 [project.optional-dependencies]
