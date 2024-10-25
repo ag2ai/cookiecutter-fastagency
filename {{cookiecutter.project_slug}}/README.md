@@ -90,3 +90,11 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 ## What's Next?
 
 Once you’ve experimented with the default workflow in the `workflow.py` file, modify the autogen workflow to define your own workflows and try them out.
+
+## Running tests
+
+This `FastAgency` project includes tests to test the autogen workflow. Run these tests with the following command:
+
+```bash
+pytest
+```
