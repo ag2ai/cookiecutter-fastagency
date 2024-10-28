@@ -1,11 +1,13 @@
 import glob
 import os
+import shutil
 
 REMOVE_PATHS = [
     {% if cookiecutter.app_type == 'console' or cookiecutter.app_type == 'mesop' %}"{{cookiecutter.project_slug}}/main_*.py",{% endif %}
     {% if 'fastapi' in cookiecutter.app_type %}"{{cookiecutter.project_slug}}/main.py",{% endif %}
     {% if 'nats' not in cookiecutter.app_type %}"{{cookiecutter.project_slug}}/main_2_fastapi.py",{% endif %}
     {% if 'nats' not in cookiecutter.app_type %}".devcontainer/nats_server.conf",{% endif %}
+    {% if cookiecutter.app_type == 'console' %}"docker/",{% endif %}
 ]
 
 for path in REMOVE_PATHS:
@@ -17,6 +19,6 @@ for path in REMOVE_PATHS:
     for p in paths:
         if p and os.path.exists(p):
             if os.path.isdir(p):
-                os.rmdir(p)
+                shutil.rmtree(p, ignore_errors=True)
             else:
                 os.unlink(p)
