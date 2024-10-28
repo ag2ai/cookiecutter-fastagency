@@ -87,10 +87,6 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 
 9. Open the Mesop UI URL [http://localhost:8888](http://localhost:8888) in your browser. You can now use the graphical user interface to start and run the autogen workflow.
 {% endif %}
-## What's Next?
-
-Once you’ve experimented with the default workflow in the `workflow.py` file, modify the autogen workflow to define your own workflows and try them out.
-
 ## Running tests
 
 This `FastAgency` project includes tests to test the autogen workflow. Run these tests with the following command:
@@ -98,3 +94,7 @@ This `FastAgency` project includes tests to test the autogen workflow. Run these
 ```bash
 pytest
 ```
+
+## What's Next?
+
+Once you’ve experimented with the default workflow in the `workflow.py` file, modify the autogen workflow to define your own workflows and try them out.
