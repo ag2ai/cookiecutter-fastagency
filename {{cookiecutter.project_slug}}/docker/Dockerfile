@@ -20,5 +20,7 @@ CMD ["/app/run_fastagency.sh"]
 # docker build -t deploy_fastagency -f docker/Dockerfile .
 
 # Run the container
+{% if "nats" in cookiecutter.app_type %}
 # NATS docker container should be running already
+{% endif %}
 # docker run --rm -d --name deploy_fastagency -e OPENAI_API_KEY=$OPENAI_API_KEY {% if "nats" in cookiecutter.app_type %}-e NATS_URL=$NATS_URL -e FASTAGENCY_NATS_PASSWORD=$FASTAGENCY_NATS_PASSWORD -p 8000:8000{% endif %}{% if "fastapi" in cookiecutter.app_type %} -p 8008:8008{% endif %} -p 8888:8888 {% if "nats" in cookiecutter.app_type %}--network=host{% endif %} deploy_fastagency
