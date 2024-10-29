@@ -110,6 +110,28 @@ This `FastAgency` project includes a Dockerfile for building and running a Docke
    ```bash
    docker run --rm -d --name deploy_fastagency -e OPENAI_API_KEY=$OPENAI_API_KEY {% if "nats" in cookiecutter.app_type %}-e NATS_URL=$NATS_URL -e FASTAGENCY_NATS_PASSWORD=$FASTAGENCY_NATS_PASSWORD -p 8000:8000{% endif %}{% if "fastapi" in cookiecutter.app_type %} -p 8008:8008{% endif %} -p 8888:8888 {% if "nats" in cookiecutter.app_type %}--network=host{% endif %} deploy_fastagency
    ```
+
+## Deploying with Docker
+
+This `FastAgency` project includes a `fly.toml` file for deployment to [fly.io](https://fly.io/), allowing you to share this project with others using a single URL. If you prefer deploying to another hosting provider, you can use the provided Dockerfile. To deplooy to fly.io, follow these steps:
+
+1. Login into fly.io:
+
+   ```bash
+   fly auth login
+   ```
+
+2. Launch the fly.io app:
+
+   ```bash
+   fly launch --config fly.toml --copy-config --yes
+   ```
+
+3. Set necessary LLM API key(for example, OPENAI_API_KEY) as a secret:
+
+   ```bash
+   fly secrets set OPENAI_API_KEY=paste_openai_api_key_here
+   ```
 {% endif %}
 ## What's Next?
 
