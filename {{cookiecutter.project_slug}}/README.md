@@ -87,10 +87,6 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 
 9. Open the Mesop UI URL [http://localhost:8888](http://localhost:8888) in your browser. You can now use the graphical user interface to start and run the autogen workflow.
 {% endif %}
-## What's Next?
-
-Once you’ve experimented with the default workflow in the `workflow.py` file, modify the autogen workflow to define your own workflows and try them out.
-
 ## Running tests
 
 This `FastAgency` project includes tests to test the autogen workflow. Run these tests with the following command:
@@ -98,3 +94,23 @@ This `FastAgency` project includes tests to test the autogen workflow. Run these
 ```bash
 pytest
 ```
+{% if cookiecutter.app_type != "console" %}
+## Docker
+
+This `FastAgency` project includes a Dockerfile for building and running a Docker image. You can build and test-run the Docker image within the devcontainer, as docker-in-docker support is enabled. Follow these steps:
+
+1. In the devcontainer terminal, run the following command to build the Docker image:
+
+   ```bash
+   docker build -t deploy_fastagency -f docker/Dockerfile .
+   ```
+
+2. Once the Docker image is built, you can run it using the following command:
+
+   ```bash
+   docker run --rm -d --name deploy_fastagency -e OPENAI_API_KEY=$OPENAI_API_KEY {% if "nats" in cookiecutter.app_type %}-e NATS_URL=$NATS_URL -e FASTAGENCY_NATS_PASSWORD=$FASTAGENCY_NATS_PASSWORD -p 8000:8000{% endif %}{% if "fastapi" in cookiecutter.app_type %} -p 8008:8008{% endif %} -p 8888:8888 {% if "nats" in cookiecutter.app_type %}--network=host{% endif %} deploy_fastagency
+   ```
+{% endif %}
+## What's Next?
+
+Once you’ve experimented with the default workflow in the `workflow.py` file, modify the autogen workflow to define your own workflows and try them out.
