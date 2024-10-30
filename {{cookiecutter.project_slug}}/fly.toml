@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = '{{cookiecutter.project_slug}}_{{ random_ascii_string(10) }}'
+app = '{{ cookiecutter.project_slug.replace("_", "-") }}-{{ random_ascii_string(5).lower() }}'
 primary_region = 'ams'
 
 [build]
