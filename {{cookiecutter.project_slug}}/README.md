@@ -1,6 +1,6 @@
 # {{cookiecutter.project_name}}
 
-This repository contains a [`FastAgency`](https://github.com/airtai/fastagency) application which uses {% if cookiecutter.app_type == "console" %}Console{% else %}{% if "nats" in cookiecutter.app_type %}[NATS](https://nats.io/), {% endif %}{% if "fastapi" in cookiecutter.app_type %}[FastAPI](https://fastapi.tiangolo.com/), and {% endif %}{% if "mesop" in cookiecutter.app_type %}[Mesop](https://google.github.io/mesop/){% endif %}{% endif %}. Below, you'll find a guide on how to run the application.
+This repository contains a [`FastAgency`](https://github.com/airtai/fastagency) application which uses {% if "nats" in cookiecutter.app_type %}[NATS](https://nats.io/), {% endif %}{% if "fastapi" in cookiecutter.app_type %}[FastAPI](https://fastapi.tiangolo.com/), and {% endif %}{% if "mesop" in cookiecutter.app_type %}[Mesop](https://google.github.io/mesop/){% endif %}. Below, you'll find a guide on how to run the application.
 
 ## Running FastAgency Application
 
@@ -31,13 +31,7 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 3. Press `Ctrl+Shift+P`(for windows/linux) or `Cmd+Shift+P`(for mac) and select the option `Dev Containers: Rebuild and Reopen in Container`. This will open the current repository in a [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers) using Docker and will install all the requirements to run the example application.
 {% if "nats" in cookiecutter.app_type %}4. This example needs `NATS` to be up and running. `NATS` is automatically started by the devcontainer.{% endif %}
 {% if "nats" in cookiecutter.app_type %}5{% else %}4{% endif %}. The `workflow.py` file defines the autogen workflows. It is imported and used in the files that define the `UI`.
-{% if cookiecutter.app_type == "console" %}
-5. The `main.py` file defines the `ConsoleUI`. In a devcontainer terminal, run the following command:
-
-   ```bash
-   fastagency run {{cookiecutter.project_slug}}/main.py
-   ```
-{% elif cookiecutter.app_type == "mesop" %}
+{% if cookiecutter.app_type == "mesop" %}
 5. The `main.py` file defines the `MesopUI`. In a devcontainer terminal, run the following command:
 
    ```bash
@@ -94,7 +88,7 @@ This `FastAgency` project includes tests to test the autogen workflow. Run these
 ```bash
 pytest -s
 ```
-{% if cookiecutter.app_type != "console" %}
+
 ## Docker
 
 This `FastAgency` project includes a Dockerfile for building and running a Docker image. You can build and test-run the Docker image within the devcontainer, as docker-in-docker support is enabled. Follow these steps:
@@ -132,7 +126,7 @@ This `FastAgency` project includes a `fly.toml` file for deployment to [fly.io](
    ```bash
    fly secrets set OPENAI_API_KEY=paste_openai_api_key_here
    ```
-{% endif %}
+
 ## What's Next?
 
 Once you’ve experimented with the default workflow in the `workflow.py` file, modify the autogen workflow to define your own workflows and try them out.
