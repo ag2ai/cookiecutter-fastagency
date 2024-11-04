@@ -92,7 +92,7 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 This `FastAgency` project includes tests to test the autogen workflow. Run these tests with the following command:
 
 ```bash
-pytest
+pytest -s
 ```
 {% if cookiecutter.app_type != "console" %}
 ## Docker
