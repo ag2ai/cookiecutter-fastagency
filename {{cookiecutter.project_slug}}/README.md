@@ -32,17 +32,10 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 {% if "nats" in cookiecutter.app_type %}4. This example needs `NATS` to be up and running. `NATS` is automatically started by the devcontainer.{% endif %}
 {% if "nats" in cookiecutter.app_type %}5{% else %}4{% endif %}. The `workflow.py` file defines the autogen workflows. It is imported and used in the files that define the `UI`.
 {% if cookiecutter.app_type == "mesop" %}
-5. The `main.py` file defines the `MesopUI`. In a devcontainer terminal, run the following command:
+5. The `main.py` file defines the `MesopUI`. You can use any Python WSGI HTTP server like [gunicorn](https://gunicorn.org/) which is the preferred way to run the Mesop application. In a devcontainer terminal, run the following command:
 
    ```bash
-   fastagency run {{cookiecutter.project_slug}}/main.py
-   ```
-
-   Or you can use Python WSGI HTTP server like [gunicorn](https://gunicorn.org/) which is the preferred way to run the Mesop application. First, you need to install it using package manager such as `pip` and then run it as follows:
-
-   ```bash
-   pip install gunicorn
-   gunicorn {{cookiecutter.project_slug}}.main:app
+   gunicorn {{cookiecutter.project_slug}}.deployment.main:app
    ```
 
 6. Open the Mesop UI URL [http://localhost:8888](http://localhost:8888) in your browser. You can now use the graphical user interface to start and run the autogen workflow.
@@ -50,13 +43,13 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 5. The `main_1_fastapi.py` file defines the `FastAPIAdapter`. In a devcontainer terminal(**Terminal 1**), run the following command:
 
    ```bash
-   uvicorn {{cookiecutter.project_slug}}.main_1_fastapi:app --host 0.0.0.0 --port 8008 --reload
+   uvicorn {{cookiecutter.project_slug}}.deployment.main_1_fastapi:app --host 0.0.0.0 --port 8008 --reload
    ```
 
 6. The `main_2_mesop.py` file defines the `MesopUI`. In a new devcontainer terminal(**Terminal 2**), run the following command:
 
    ```bash
-   gunicorn {{cookiecutter.project_slug}}.main_2_mesop:app -b 0.0.0.0:8888 --reload
+   gunicorn {{cookiecutter.project_slug}}.deployment.main_2_mesop:app -b 0.0.0.0:8888 --reload
    ```
 
 7. Open the Mesop UI URL [http://localhost:8888](http://localhost:8888) in your browser. You can now use the graphical user interface to start and run the autogen workflow.
@@ -64,19 +57,19 @@ To run this [`FastAgency`](https://github.com/airtai/fastagency) application, fo
 6. The `main_1_nats.py` file defines the autogen workflows and includes the `NatsAdapter` to exchange the workflow conversation as messages via NATS. In a devcontainer terminal(**Terminal 1**), run the following command:
 
    ```bash
-   uvicorn {{cookiecutter.project_slug}}.main_1_nats:app --reload
+   uvicorn {{cookiecutter.project_slug}}.deployment.main_1_nats:app --reload
    ```
 
 7. The `main_2_fastapi.py` file defines the `FastAPIAdapter`, which handles `NATS` messages using `NatsProvider`. In a new devcontainer terminal(**Terminal 2**), run the following command:
 
    ```bash
-   uvicorn {{cookiecutter.project_slug}}.main_2_fastapi:app --host 0.0.0.0 --port 8008 --reload
+   uvicorn {{cookiecutter.project_slug}}.deployment.main_2_fastapi:app --host 0.0.0.0 --port 8008 --reload
    ```
 
 8. Finally, the `main_3_mesop.py` file defines the `MesopUI`. In a new devcontainer terminal(**Terminal 3**), run the following command to start the mesop UI:
 
    ```bash
-   gunicorn {{cookiecutter.project_slug}}.main_3_mesop:app -b 0.0.0.0:8888 --reload
+   gunicorn {{cookiecutter.project_slug}}.deployment.main_3_mesop:app -b 0.0.0.0:8888 --reload
    ```
 
 9. Open the Mesop UI URL [http://localhost:8888](http://localhost:8888) in your browser. You can now use the graphical user interface to start and run the autogen workflow.

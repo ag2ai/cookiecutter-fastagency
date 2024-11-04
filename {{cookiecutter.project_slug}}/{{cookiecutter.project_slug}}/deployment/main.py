@@ -1,7 +1,7 @@
 from fastagency import FastAgency
 {% if cookiecutter.app_type == "mesop" %}from fastagency.ui.mesop import MesopUI{% endif %}
 
-from .workflow import wf
+from ..workflow import wf
 
 
 app = FastAgency(
@@ -11,4 +11,4 @@ app = FastAgency(
 )
 
 # start the fastagency app with the following command
-# fastagency run {{cookiecutter.project_slug}}/main.py
+# gunicorn {{cookiecutter.project_slug}}.deployment.main:app
