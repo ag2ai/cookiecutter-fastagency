@@ -30,4 +30,4 @@ def read_root() -> dict[str, dict[str, str]]:
 
 
 # start the provider with the following command
-# uvicorn {{cookiecutter.project_slug}}.main_2_fastapi:app --host 0.0.0.0 --port 8008 --reload
+# uvicorn {{cookiecutter.project_slug}}.deployment.main_2_fastapi:app --host 0.0.0.0 --port 8008 --reload

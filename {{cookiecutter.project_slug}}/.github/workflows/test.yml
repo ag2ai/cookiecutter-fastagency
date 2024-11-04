@@ -8,15 +8,16 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
+{% endraw %}
 jobs:
   test:
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["{{cookiecutter.python_version}}"]
       fail-fast: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
+{% raw %}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python

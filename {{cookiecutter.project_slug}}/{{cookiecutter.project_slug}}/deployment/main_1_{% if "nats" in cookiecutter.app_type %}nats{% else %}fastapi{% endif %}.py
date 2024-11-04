@@ -4,7 +4,7 @@ from typing import Any
 from fastapi import FastAPI
 {% if "nats" in cookiecutter.app_type %}from fastagency.adapters.nats import NatsAdapter{% else %}from fastagency.adapters.fastapi import FastAPIAdapter{% endif %}
 
-from .workflow import wf
+from ..workflow import wf
 
 {% if "nats" in cookiecutter.app_type %}
 nats_url = os.environ.get("NATS_URL", "nats://localhost:4222")
@@ -28,4 +28,4 @@ def list_workflows() -> dict[str, Any]:
 
 
 # start the adapter with the following command
-# uvicorn {{cookiecutter.project_slug}}.main_1_{% if "nats" in cookiecutter.app_type %}nats{% else %}fastapi{% endif %}:app --reload
+# uvicorn {{cookiecutter.project_slug}}.deployment.main_1_{% if "nats" in cookiecutter.app_type %}nats{% else %}fastapi{% endif %}:app --reload

@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM python:{{cookiecutter.python_version}}
 
 WORKDIR /app
 
