@@ -11,4 +11,5 @@ app = FastAgency(
 )
 
 # start the fastagency app with the following command
-# gunicorn {{cookiecutter.project_slug}}.deployment.main:app
+# gunicorn my_fastagency_app.local.main_mesop:app
+
