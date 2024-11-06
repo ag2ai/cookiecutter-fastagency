@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for {{cookiecutter.project_slug}} on {% now 'local', '%Y-%m-%dT%H:%M:%SZ' %}
+# fly.toml app configuration file generated for {{cookiecutter.project_slug}}
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = '{{ cookiecutter.project_slug.replace("_", "-") }}-{{ random_ascii_string(5).lower() }}'
+app = '{{ cookiecutter.project_slug.replace("_", "-") }}'
 primary_region = 'ams'
 
 [build]
