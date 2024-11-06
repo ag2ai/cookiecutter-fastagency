@@ -7,17 +7,22 @@ NATS_FASTAPI_PORT=${NATS_FASTAPI_PORT:-8000}
 {% if "fastapi" in cookiecutter.app_type %}
 FASTAPI_PORT=${FASTAPI_PORT:-8008}
 {% endif %}
-# export MESOP_PORT=${MESOP_PORT:-8888}
-export MESOP_PORT=8888
+export MESOP_PORT=${MESOP_PORT:-8888}
 
 # Default number of workers if not set
-# WORKERS=${WORKERS:-1}
-WORKERS=4
+WORKERS=${WORKERS:-1}
 echo "Number of workers: $WORKERS"
 
-# Start nginx
+# Generate nginx config
+for ((i=1; i<$WORKERS+1; i++))
+do
+	PORT=$((MESOP_PORT + i))
+    sed -i "5i\    server 127.0.0.1:$PORT;" nginx.conf.template
+done
 envsubst '${MESOP_PORT}' < nginx.conf.template >/etc/nginx/conf.d/default.conf
 cat /etc/nginx/conf.d/default.conf
+
+# Start nginx
 nginx -g "daemon off;" &
 {% if "nats" in cookiecutter.app_type %}
 # Run nats uvicorn server
