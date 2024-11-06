@@ -2,15 +2,21 @@ FROM python:{{cookiecutter.python_version}}
 
 WORKDIR /app
 
+# Install nginx
+RUN apt-get update && apt-get install -y --no-install-recommends nginx gettext \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY {{cookiecutter.project_slug}} /app/{{cookiecutter.project_slug}}
 
-COPY pyproject.toml README.md docker/run_fastagency.sh /app/
+COPY pyproject.toml README.md docker/run_fastagency.sh docker/nginx.conf.template /app/
+
+# COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN pip install --upgrade pip && pip install --no-cache-dir -e "."
 
-RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
+# RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
 
-USER appuser
+# USER appuser
 
 EXPOSE 8000 8008 8888
 
