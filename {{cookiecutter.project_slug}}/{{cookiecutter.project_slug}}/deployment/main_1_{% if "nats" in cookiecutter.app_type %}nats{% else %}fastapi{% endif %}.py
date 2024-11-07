@@ -1,5 +1,7 @@
-{% if "nats" in cookiecutter.app_type %}import os{% endif -%}
-from typing import Any
+{% if "nats" in cookiecutter.app_type -%}
+import os
+{% endif %}
+{%- if "mesop" in cookiecutter.app_type %}from typing import Any{% endif %}
 
 {% if "nats" in cookiecutter.app_type %}from fastagency.adapters.nats import NatsAdapter{% else %}from fastagency.adapters.fastapi import FastAPIAdapter{% endif %}
 from fastapi import FastAPI
@@ -15,7 +17,7 @@ password: str = os.environ.get("FASTAGENCY_NATS_PASSWORD", "fastagency_nats_pass
 adapter = NatsAdapter(provider=wf, nats_url=nats_url, user=user, password=password)
 
 app = FastAPI(lifespan=adapter.lifespan)
-{% else %}
+{%- else %}
 
 adapter = FastAPIAdapter(provider=wf)
 
