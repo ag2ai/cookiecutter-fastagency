@@ -1,12 +1,32 @@
 from fastagency.adapters.fastapi import FastAPIAdapter
+{% if cookiecutter.authentication == "google" %}
+from fastagency.ui.mesop.auth.firebase import FirebaseAuth, FirebaseConfig
+{% endif %}
 from fastagency.app import FastAgency
 from fastagency.ui.mesop import MesopUI
+{% if cookiecutter.authentication == "google" %}
+import yaml
+{% endif %}
 
 fastapi_url = "http://localhost:8008"
 
 provider = FastAPIAdapter.create_provider(
     fastapi_url=fastapi_url,
 )
+
+{% if cookiecutter.authentication == "google" %}
+firebase_config = FirebaseConfig(**yaml.safe_load(open("firebase_config.yaml")))
+allowed_users = yaml.safe_load(open("allowed_users.yaml"))
+auth = FirebaseAuth(
+    sign_in_methods=["google"],
+    config=firebase_config,
+    allowed_users=allowed_users,
+)
+
+ui = MesopUI(auth=auth)
+{% else %}
+ui = MesopUI()
+{% endif %}
 
 app = FastAgency(
     provider=provider,
