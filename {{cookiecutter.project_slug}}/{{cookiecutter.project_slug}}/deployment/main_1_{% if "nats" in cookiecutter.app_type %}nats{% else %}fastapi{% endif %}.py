@@ -21,7 +21,7 @@ adapter = FastAPIAdapter(provider=wf)
 
 app = FastAPI()
 app.include_router(adapter.router)
-{% endif -%}
+{%- endif %}
 
 
 # this is optional, but we would like to see the list of available workflows
