@@ -1,25 +1,30 @@
+{% if "nats" in cookiecutter.app_type -%}
 import os
-from typing import Any
+{% endif %}
+{%- if "mesop" in cookiecutter.app_type %}from typing import Any{% endif %}
 
-from fastapi import FastAPI
 {% if "nats" in cookiecutter.app_type %}from fastagency.adapters.nats import NatsAdapter{% else %}from fastagency.adapters.fastapi import FastAPIAdapter{% endif %}
+from fastapi import FastAPI
 
 from ..workflow import wf
 
-{% if "nats" in cookiecutter.app_type %}
+{%- if "nats" in cookiecutter.app_type %}
+
 nats_url = os.environ.get("NATS_URL", "nats://localhost:4222")
-user: str = "fastagency"
+user: str = os.environ.get("FASTAGENCY_NATS_USER", "fastagency")
 password: str = os.environ.get("FASTAGENCY_NATS_PASSWORD", "fastagency_nats_password")
 
 adapter = NatsAdapter(provider=wf, nats_url=nats_url, user=user, password=password)
 
 app = FastAPI(lifespan=adapter.lifespan)
-{% else %}
+{%- else %}
+
 adapter = FastAPIAdapter(provider=wf)
 
 app = FastAPI()
 app.include_router(adapter.router)
-{% endif %}
+{%- endif %}
+
 
 # this is optional, but we would like to see the list of available workflows
 @app.get("/")

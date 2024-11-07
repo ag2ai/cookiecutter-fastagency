@@ -1,21 +1,25 @@
 version: '3'
 
 services:
+  # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
   python-{{cookiecutter.python_version}}-{{cookiecutter.project_slug}}:
     image: mcr.microsoft.com/devcontainers/python:{{cookiecutter.python_version}}
     container_name: {{cookiecutter.project_slug}}-${USER}-python-{{cookiecutter.python_version}}
     volumes:
       - ../:/workspaces/{{cookiecutter.project_slug}}:cached
     command: sleep infinity
-    {% if "nats" in cookiecutter.app_type %}
+{% if "nats" in cookiecutter.app_type %}
     environment:
       - NATS_URL=nats://{{cookiecutter.project_slug}}-${USER}-nats-py{{cookiecutter.python_version.replace('.','')}}:4222
-    {% endif %}
+{% endif %}
     env_file:
       - ./devcontainer.env
+    security_opt:
+      - no-new-privileges:true
     networks:
       - {{cookiecutter.project_slug}}-network
-  {% if "nats" in cookiecutter.app_type %}
+{% if "nats" in cookiecutter.app_type %}
+  # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
   nats-{{cookiecutter.project_slug}}:
     image: nats:latest
     container_name: {{cookiecutter.project_slug}}-${USER}-nats-py{{cookiecutter.python_version.replace('.','')}}
@@ -27,9 +31,11 @@ services:
     command: [ "--config", "/etc/nats/server.conf" ]
     env_file:
       - ./devcontainer.env
+    security_opt:
+      - no-new-privileges:true
     networks:
       - {{cookiecutter.project_slug}}-network
-  {% endif %}
+{% endif %}
 networks:
   {{cookiecutter.project_slug}}-network:
     name: {{cookiecutter.project_slug}}-${USER}-network

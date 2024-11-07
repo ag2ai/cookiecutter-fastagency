@@ -3,7 +3,6 @@ from fastagency import FastAgency
 
 from ..workflow import wf
 
-
 app = FastAgency(
     provider=wf,
     ui={% if cookiecutter.app_type == "mesop" %}MesopUI{% endif %}(),

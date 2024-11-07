@@ -46,5 +46,4 @@ jobs:
       - name: Run tests
         run: pytest
         env:
-          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
-{% endraw %}
+          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}{% endraw %}
