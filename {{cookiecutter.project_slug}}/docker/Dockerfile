@@ -12,9 +12,13 @@ COPY pyproject.toml README.md docker/run_fastagency.sh docker/nginx.conf.templat
 
 RUN pip install --upgrade pip && pip install --no-cache-dir -e "."
 
-# RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
+# Add user appuser with root permissions
+RUN adduser --disabled-password --gecos '' appuser \
+    && chown -R appuser /app \
+    && chown -R appuser:appuser /etc/nginx/conf.d /var/log/nginx /var/lib/nginx \
+    && touch /run/nginx.pid && chown -R appuser:appuser /run/nginx.pid
 
-# USER appuser
+USER appuser
 
 EXPOSE 8000 8008 8888
 
