@@ -10,8 +10,6 @@ COPY {{cookiecutter.project_slug}} /app/{{cookiecutter.project_slug}}
 
 COPY pyproject.toml README.md docker/run_fastagency.sh docker/nginx.conf.template /app/
 
-# COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
-
 RUN pip install --upgrade pip && pip install --no-cache-dir -e "."
 
 # RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
