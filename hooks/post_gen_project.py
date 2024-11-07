@@ -14,7 +14,7 @@ for path in REMOVE_PATHS:
     if not path:
         continue
     paths = list(glob.glob(path)) if "*" in path else [path]
-    
+
     for p in paths:
         if p and os.path.exists(p):
             if os.path.isdir(p):
