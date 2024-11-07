@@ -3,7 +3,6 @@ from fastagency.ui.mesop import MesopUI
 
 from ..workflow import wf
 
-
 app = FastAgency(
     provider=wf,
     ui=MesopUI(),
@@ -12,4 +11,3 @@ app = FastAgency(
 
 # start the fastagency app with the following command
 # gunicorn {{cookiecutter.project_slug}}.local.main_mesop:app
-
