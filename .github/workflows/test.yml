@@ -32,20 +32,6 @@ jobs:
       - name: Test Cookiecutter
         run: ./scripts/test_cookiecutter.sh ${{ matrix.app-type }} ${{ matrix.python-version }}
 
-    #   - name: Run cookiecutter
-    #     run: cookiecutter --replay-file ./cookiecutter_replay/${{ matrix.app-type }}_${{ matrix.python-version }}.json ./
-
-    #   - name: Install Generated Project Dependencies
-    #     run: cd my_fastagency_app && pip install .[dev]
-
-    #   - name: Run Pre-commit
-    #     run: |
-    #         cd my_fastagency_app
-    #         ls -lah
-    #         git init
-    #         git add .
-    #         pre-commit run --show-diff-on-failure --color=always --all-files
-
   # https://github.com/marketplace/actions/alls-green#why
   check: # This job does nothing and is only used for the branch protection
     # from: https://github.com/re-actors/alls-green
