@@ -1,8 +1,0 @@
-{
-    "cookiecutter": {
-        "project_name": "My FastAgency App",
-        "project_slug": "my_fastagency_app",
-        "app_type": "nats+fastapi+mesop",
-        "python_version": "3.11"
-    }
-}
