@@ -30,7 +30,7 @@ jobs:
         run: pip install cookiecutter
 
       - name: Test Cookiecutter
-        run: ./scripts/test-cookiecutter.sh ${{ matrix.app-type }} ${{ matrix.python-version }}
+        run: ./scripts/test_cookiecutter.sh ${{ matrix.app-type }} ${{ matrix.python-version }}
 
     #   - name: Run cookiecutter
     #     run: cookiecutter --replay-file ./cookiecutter_replay/${{ matrix.app-type }}_${{ matrix.python-version }}.json ./
