@@ -41,7 +41,7 @@ jobs:
             ls -lah
             git init
             git add .
-            pre-commit run --show-diff-on-failure --color=always
+            pre-commit run --show-diff-on-failure --color=always --all-files
 
   # https://github.com/marketplace/actions/alls-green#why
   check: # This job does nothing and is only used for the branch protection
