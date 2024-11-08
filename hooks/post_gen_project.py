@@ -21,7 +21,3 @@ for path in REMOVE_PATHS:
                 shutil.rmtree(p, ignore_errors=True)
             else:
                 os.unlink(p)
-
-# run linter to fix any formatting issues
-cmd = "./scripts/lint.sh"
-os.system(cmd)

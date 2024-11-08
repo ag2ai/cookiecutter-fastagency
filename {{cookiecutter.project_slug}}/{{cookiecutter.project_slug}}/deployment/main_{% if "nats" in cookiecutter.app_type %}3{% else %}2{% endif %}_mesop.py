@@ -1,8 +1,8 @@
-{% if cookiecutter.authentication == "google" %}
+{%- if cookiecutter.authentication == "google" -%}
 from pathlib import Path
 
 import yaml
-{% endif %}
+{% endif -%}
 from fastagency.adapters.fastapi import FastAPIAdapter
 from fastagency.app import FastAgency
 from fastagency.ui.mesop import MesopUI{% if cookiecutter.authentication == "google" %}
@@ -14,7 +14,7 @@ provider = FastAPIAdapter.create_provider(
     fastapi_url=fastapi_url,
 )
 
-{% if cookiecutter.authentication == "google" %}
+{%- if cookiecutter.authentication == "google" %}
 with Path("firebase_config.yaml").open() as f:
     firebase_config = FirebaseConfig(**yaml.safe_load(f))
 with Path("allowed_users.yaml").open() as f:
