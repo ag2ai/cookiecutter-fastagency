@@ -1,0 +1,62 @@
+name: Test
+
+on:
+  push:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit-check:
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.11", "3.10"]
+        app-type: ["fastapi+mesop", "mesop", "nats+fastapi+mesop"]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install Cookiecutter
+        run: pip install cookiecutter
+
+      - name: Run cookiecutter
+        run: cookiecutter --replay-file ./cookiecutter_replay/${{ matrix.app-type }}_${{ matrix.python-version }}.json ./
+
+      - name: Install Generated Project Dependencies
+        run: cd my_fastagency_app && pip install .[dev]
+
+      - name: Run Pre-commit
+        run: cd my_fastagency_app && pre-commit run --all-files
+
+  # https://github.com/marketplace/actions/alls-green#why
+  check: # This job does nothing and is only used for the branch protection
+    # from: https://github.com/re-actors/alls-green
+    # Important: For this to work properly, it is a must to have the job always
+    # run, otherwise GitHub will make it skipped when any of the dependencies
+    # fail. In some contexts, skipped is interpreted as success which may lead
+    # to undersired, unobvious and even dangerous (as in security breach
+    # "dangerous") side-effects.
+    if: always()
+
+    needs:
+      - pre-commit-check
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1 # nosemgrep
+        with:
+          # allowed-failures: docs, linters
+          # allowed-skips: non-voting-flaky-job
+          jobs: ${{ toJSON(needs) }}
