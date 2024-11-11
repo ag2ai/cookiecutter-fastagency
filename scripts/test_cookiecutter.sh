@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/env bash
 
 # This script is used to test the cookiecutter template
 # It will create a new project using the cookiecutter template under the generated/$1-$2-$3/ directory
