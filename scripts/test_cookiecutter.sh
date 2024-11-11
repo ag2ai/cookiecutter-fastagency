@@ -19,11 +19,8 @@ cd generated/$1-$2-$3/my_fastagency_app && pip install -e .[dev] && cd ../../..
 # Initialize git in the generated project(needed for pre-commit)
 echo -e "\033[32mInitializing git in the generated project\033[0m"
 cd generated/$1-$2-$3/my_fastagency_app && git init && git add . && cd ../../..
-<<<<<<< HEAD
 # uncomment this for debugging
 # cd generated/$1-$2-$3/my_fastagency_app && git commit -m "init" --no-verify && cd ../../..
-=======
->>>>>>> origin/main
 
 # Run pre-commit
 echo -e "\033[32mRunning pre-commit\033[0m"
