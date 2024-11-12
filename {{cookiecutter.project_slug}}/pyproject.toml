@@ -9,7 +9,7 @@ name = "{{cookiecutter.project_slug}}"
 
 dependencies = [
     "fastagency[autogen,mesop,server{% if "fastapi" in cookiecutter.app_type %},fastapi{% endif %}{% if "nats" in cookiecutter.app_type %},nats{% endif %}{% if cookiecutter.authentication == "google" %},firebase{% endif %}]>=0.3.0",
-{% if cookiecutter.authentication == "google" %}
+{%- if cookiecutter.authentication == "google" %}
     "PyYAML>=6.0.2",
 {% endif %}
 ]
