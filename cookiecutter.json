@@ -3,5 +3,5 @@
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
     "app_type": ["fastapi+mesop", "mesop", "nats+fastapi+mesop"],
     "python_version": ["3.12", "3.11", "3.10"],
-    "authentication": ["none", "google"]
+    "authentication": ["none", "google", "basic"]
 }
