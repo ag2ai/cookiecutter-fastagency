@@ -47,7 +47,7 @@ ui = MesopUI()
 
 app = FastAgency(
     provider=provider,
-    ui=MesopUI(),
+    ui=ui,
     title="{{cookiecutter.project_name}}",
 )
 
