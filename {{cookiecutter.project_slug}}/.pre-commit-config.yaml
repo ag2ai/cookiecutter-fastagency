@@ -43,6 +43,5 @@ repos:
         name: Check if the app name is registered in fly.io
         entry: "scripts/check-registered-app-pre-commit.sh"
         language: python
-        types: [python]
         require_serial: true
         verbose: true

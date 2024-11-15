@@ -8,12 +8,17 @@ if [ ! -f registered_app_domain.txt ]; then
   exit 1
 fi
 
-echo -e "\033[0;32mLogging into fly.io\033[0m"
-fly auth login
+echo -e "\033[0;32mChecking if already logged into fly.io\033[0m"
+if ! flyctl auth whoami > /dev/null 2>&1; then
+    echo -e "\033[0;32mLogging into fly.io\033[0m"
+    flyctl auth login
+else
+    echo -e "\033[0;32mAlready logged into fly.io\033[0m"
+fi
 
 echo -e "\033[0;32mDeploying to fly.io\033[0m"
-fly deploy --config fly.toml --yes
-fly scale count 1 --config fly.toml --yes
+flyctl deploy --config fly.toml --yes
+flyctl scale count 1 --config fly.toml --yes
 
 echo -e "\033[0;32mSetting secrets\033[0m"
-fly secrets set OPENAI_API_KEY=$OPENAI_API_KEY
+flyctl secrets set OPENAI_API_KEY=$OPENAI_API_KEY

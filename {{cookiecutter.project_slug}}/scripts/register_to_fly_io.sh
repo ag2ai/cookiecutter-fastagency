@@ -9,13 +9,18 @@ if [ -f registered_app_domain.txt ]; then
     exit 1
 fi
 
-echo -e "\033[0;32mLogging into fly.io\033[0m"
-fly auth login
+echo -e "\033[0;32mChecking if already logged into fly.io\033[0m"
+if ! flyctl auth whoami > /dev/null 2>&1; then
+    echo -e "\033[0;32mLogging into fly.io\033[0m"
+    flyctl auth login
+else
+    echo -e "\033[0;32mAlready logged into fly.io\033[0m"
+fi
 
 export FLY_APP_NAME={{ cookiecutter.project_slug.replace("_", "-") }}
 
 echo -e "\033[0;32mRegistering app name in fly.io\033[0m"
-if fly apps create $FLY_APP_NAME; then
+if flyctl apps create $FLY_APP_NAME; then
     echo "$FLY_APP_NAME.fly.dev" > registered_app_domain.txt
     echo -e "\033[0;32mApp name registered successfully\033[0m"
     echo -e "\033[0;32mRegistered app name is:\033[0m"
