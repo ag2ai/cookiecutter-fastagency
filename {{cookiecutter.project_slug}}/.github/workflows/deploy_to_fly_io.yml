@@ -1,0 +1,27 @@
+{% raw %}
+name: Fly Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Check if the app name is registered in fly.io
+        run: ./scripts/deploy_to_fly_io.sh
+
+      - name: Deploy to Fly
+        run: |
+            flyctl deploy --remote-only --config fly.toml --yes
+            flyctl scale count 1 --config fly.toml --yes
+            flyctl secrets set OPENAI_API_KEY=$OPENAI_API_KEY
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}{% endraw %}
