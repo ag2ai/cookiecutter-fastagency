@@ -5,7 +5,14 @@ upstream mesop_backend {
 
 }
 
-map $cookie_fly_machine_id $sticky_action {
+# Extract fly-machine-id cookie value
+map $http_cookie $fly_machine_id {
+    "~*fly-machine-id=([^;]+)" $1;
+    default "";
+}
+
+# Determine action based on cookie value
+map $fly_machine_id $sticky_action {
     ""      "set_cookie";  # Empty cookie - need to set it
     $FLY_MACHINE_ID   "proceed";    # Cookie matches current instance
     default "replay";      # Cookie exists but doesn't match - need to replay
@@ -29,7 +36,7 @@ server {
 
         # Handle replay
         if ($sticky_action = "replay") {
-            add_header Fly-Replay "instance=$cookie_fly_machine_id";
+            add_header Fly-Replay "instance=$fly_machine_id";
             return 307;
         }
 
