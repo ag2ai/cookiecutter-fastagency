@@ -5,6 +5,13 @@ upstream mesop_backend {
 
 }
 
+map $cookie_fly_machine_id $sticky_action {
+    ""      "set_cookie";  # Empty cookie - need to set it
+    $FLY_MACHINE_ID   "proceed";    # Cookie matches current instance
+    default "replay";      # Cookie exists but doesn't match - need to replay
+}
+
+# Main server block
 server {
     listen $MESOP_PORT;
     server_name localhost;
@@ -15,6 +22,17 @@ server {
     add_header X-XSS-Protection "1; mode=block";
 
     location / {
+        # Handle cookie setting
+        if ($sticky_action = "set_cookie") {
+            add_header Set-Cookie "fly-machine-id=$FLY_MACHINE_ID; Max-Age=518400; Path=/";
+        }
+
+        # Handle replay
+        if ($sticky_action = "replay") {
+            add_header Fly-Replay "instance=$cookie_fly_machine_id";
+            return 307;
+        }
+
         proxy_pass http://mesop_backend;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
