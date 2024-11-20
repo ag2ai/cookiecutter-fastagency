@@ -1,7 +1,7 @@
 {
     "project_name": "My FastAgency App",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
-    "app_type": ["fastapi+mesop", "mesop", "nats+fastapi+mesop"],
+    "app_type": ["fastapi+mesop", "mesop", "nats+fastapi+mesop", "fastapi"],
     "python_version": ["3.12", "3.11", "3.10"],
     "authentication": ["basic", "google", "none"]
 }
