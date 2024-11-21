@@ -8,6 +8,7 @@ REMOVE_PATHS = [
     {% if 'nats' not in cookiecutter.app_type %}"{{cookiecutter.project_slug}}/deployment/main_2_fastapi.py",{% endif %}
     {% if 'nats' not in cookiecutter.app_type %}".devcontainer/nats_server.conf",{% endif %}
     {% if cookiecutter.app_type == 'fastapi' %}"{{cookiecutter.project_slug}}/deployment/main_2_mesop.py",{% endif %}
+    {% if cookiecutter.authentication != 'google' %}"deployment/",{% endif %}
 ]
 
 for path in REMOVE_PATHS:
