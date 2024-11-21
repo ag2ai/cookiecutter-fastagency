@@ -38,7 +38,7 @@ html = """
       <div id="workflows"></div>
       <ul id="messages"></ul>
       <script>
-         const API_URL = location.protocol + '//' + location.host + '/fastagency';// Use wss:// if location.protocol is https else use ws://
+         const API_URL = location.protocol + '//' + location.host + '/fastagency';
          const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/fastagency/ws'; // nosemgrep
          let socket;
 
