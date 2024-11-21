@@ -8,7 +8,7 @@ version = "0.1.0"
 name = "{{cookiecutter.project_slug}}"
 
 dependencies = [
-    "fastagency[{{cookiecutter.runtime}},mesop,server{% if "fastapi" in cookiecutter.app_type %},fastapi{% endif %}{% if "nats" in cookiecutter.app_type %},nats{% endif %}{% if cookiecutter.authentication == "google" %},firebase{% elif cookiecutter.authentication == "basic" %},basic_auth{% endif %}]>=0.3.0",
+    "fastagency[{{cookiecutter.runtime}},mesop,server{% if "fastapi" in cookiecutter.app_type %},fastapi{% endif %}{% if "nats" in cookiecutter.app_type %},nats{% endif %}{% if cookiecutter.authentication == "google" %},firebase{% elif cookiecutter.authentication == "basic" %},basic_auth{% endif %}]==0.4.0-dev0",
 {%- if cookiecutter.authentication == "google" %}
     "PyYAML>=6.0.2",
 {% endif %}

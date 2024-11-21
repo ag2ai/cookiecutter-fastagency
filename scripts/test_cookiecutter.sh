@@ -8,9 +8,9 @@
 set -o errexit
 
 # Accept two arguments: app-type and python-version
-echo -e "\033[32mGenerating project using cookiecutter template with app-type: $1, python-version: $2 and authentication: $3\033[0m"
+echo -e "\033[32mGenerating project using cookiecutter template with app-type: $1, python-version: $2, authentication: $3 and runtime $4 \033[0m"
 rm -rf generated/$1-$2-$3
-cookiecutter -f --no-input --output-dir generated/$1-$2-$3/ ./ app_type=$1 python_version=$2 authentication=$3
+cookiecutter -f --no-input --output-dir generated/$1-$2-$3/ ./ app_type=$1 python_version=$2 authentication=$3 runtime=$4
 
 # Install generated project's dependencies
 echo -e "\033[32mInstalling dependencies for the generated project\033[0m"
