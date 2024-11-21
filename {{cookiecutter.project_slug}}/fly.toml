@@ -10,7 +10,7 @@ primary_region = 'ams'
   dockerfile = 'docker/Dockerfile'
 
 [http_service]
-  internal_port = 8888
+  internal_port = {% if cookiecutter.app_type == 'fastapi' %}8008{% else %}8888{% endif %}
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true

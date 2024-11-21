@@ -38,8 +38,8 @@ html = """
       <div id="workflows"></div>
       <ul id="messages"></ul>
       <script>
-         const API_URL = 'http://127.0.0.1:8008/fastagency';
-         const WS_URL = 'ws://127.0.0.1:8008/fastagency/ws'; // nosemgrep
+         const API_URL = location.protocol + '//' + location.host + '/fastagency';// Use wss:// if location.protocol is https else use ws://
+         const WS_URL = (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/fastagency/ws'; // nosemgrep
          let socket;
 
          async function fetchWorkflows() {
@@ -115,6 +115,7 @@ html = """
 """
 
 
+# Optional basic HTML page to interact with the workflows
 @app.get("/")
 async def get() -> HTMLResponse:
     return HTMLResponse(html)
