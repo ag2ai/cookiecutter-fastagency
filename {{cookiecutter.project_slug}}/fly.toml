@@ -34,8 +34,7 @@ primary_region = 'ams'
 
   [[services.ports]]
     handlers = ["tls", "http"]
-    port = 8000{%- endif %}
-{% if "fastapi" in cookiecutter.app_type %}
+    port = 8000{%- endif %}{% if "fastapi" in cookiecutter.app_type %}
 [[services]]
   http_checks = []
   internal_port = 8008
@@ -48,8 +47,7 @@ primary_region = 'ams'
 
   [[services.ports]]
     handlers = ["tls", "http"]
-    port = 8008{%- endif %}
-{% if "mesop" in cookiecutter.app_type %}
+    port = 8008{%- endif %}{% if "mesop" in cookiecutter.app_type %}
 [[services]]
   http_checks = []
   internal_port = 8888

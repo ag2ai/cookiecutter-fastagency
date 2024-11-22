@@ -69,8 +69,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
-}{%- endif %}
-{% if "fastapi" in cookiecutter.app_type %}
+}{%- endif %}{% if "fastapi" in cookiecutter.app_type %}
 # Fastapi server block
 server {
     listen $FASTAPI_PORT;
@@ -108,8 +107,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
     }
-}{%- endif %}
-{% if "mesop" in cookiecutter.app_type %}
+}{%- endif %}{% if "mesop" in cookiecutter.app_type %}
 # Mesop server block
 server {
     listen $MESOP_PORT;
