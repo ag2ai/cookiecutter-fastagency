@@ -21,3 +21,43 @@ primary_region = 'ams'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+{% if "nats" in cookiecutter.app_type %}
+[[services]]
+  http_checks = []
+  internal_port = 8000
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 8000{%- endif %}{% if "fastapi" in cookiecutter.app_type %}
+[[services]]
+  http_checks = []
+  internal_port = 8008
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 8008{%- endif %}{% if "mesop" in cookiecutter.app_type %}
+[[services]]
+  http_checks = []
+  internal_port = 8888
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+
+  [services.concurrency]
+    type = "connections"
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 8888{%- endif %}
