@@ -35,7 +35,7 @@ repos:
     rev: v1.5.0
     hooks:
       - id: detect-secrets
-        args: ["--baseline", ".secrets.baseline"]
+        args: ["--baseline", ".secrets.baseline"]{% if cookiecutter.deployment == 'fly.io' %}
 
   - repo: local
     hooks:
@@ -44,4 +44,4 @@ repos:
         entry: "scripts/check-registered-app-pre-commit.sh"
         language: python
         require_serial: true
-        verbose: true
+        verbose: true{%- endif %}

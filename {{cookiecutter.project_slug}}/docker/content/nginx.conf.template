@@ -43,7 +43,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
 
     location / {
-        {% if cookiecutter.deployment == 'fly.io' %}# Handle cookie setting
+        {%- if cookiecutter.deployment == 'fly.io' %}# Handle cookie setting
         if ($sticky_action = "set_cookie") {
             add_header Set-Cookie "fly-machine-id=$FLY_MACHINE_ID; Max-Age=518400; Path=/";
         }
@@ -52,8 +52,7 @@ server {
         if ($sticky_action = "replay") {
             add_header Fly-Replay "instance=$fly_machine_id";
             return 307;
-        }
-        {% endif %}
+        }{%- endif %}
         proxy_pass http://nats_fastapi_backend;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -81,7 +80,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
 
     location / {
-        {% if cookiecutter.deployment == 'fly.io' %}# Handle cookie setting
+        {%- if cookiecutter.deployment == 'fly.io' %}# Handle cookie setting
         if ($sticky_action = "set_cookie") {
             add_header Set-Cookie "fly-machine-id=$FLY_MACHINE_ID; Max-Age=518400; Path=/";
         }
@@ -90,8 +89,7 @@ server {
         if ($sticky_action = "replay") {
             add_header Fly-Replay "instance=$fly_machine_id";
             return 307;
-        }
-        {% endif %}
+        }{%- endif %}
         proxy_pass http://fastapi_backend;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -119,7 +117,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
 
     location / {
-        {% if cookiecutter.deployment == 'fly.io' %}# Handle cookie setting
+        {%- if cookiecutter.deployment == 'fly.io' %}# Handle cookie setting
         if ($sticky_action = "set_cookie") {
             add_header Set-Cookie "fly-machine-id=$FLY_MACHINE_ID; Max-Age=518400; Path=/";
         }
@@ -128,8 +126,7 @@ server {
         if ($sticky_action = "replay") {
             add_header Fly-Replay "instance=$fly_machine_id";
             return 307;
-        }
-        {% endif %}
+        }{%- endif %}
         proxy_pass http://mesop_backend;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
