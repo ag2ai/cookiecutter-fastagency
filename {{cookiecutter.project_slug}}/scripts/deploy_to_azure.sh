@@ -6,7 +6,7 @@
 RESOURCE_GROUP="{{ cookiecutter.project_slug.replace("_", "-") }}-rg"
 CONTAINER_APP_NAME="{{ cookiecutter.project_slug.replace("_", "-") }}"
 LOCATION="westeurope"
-ACR_NAME="{{ cookiecutter.project_slug.replace("_", "-") }}-acr"
+ACR_NAME="{{ cookiecutter.project_slug.replace("_", "") }}-acr"
 
 
 echo -e "\033[0;32mChecking if already logged into Azure\033[0m"
