@@ -4,5 +4,5 @@
     "app_type": ["fastapi+mesop", "mesop", "nats+fastapi+mesop", "fastapi"],
     "python_version": ["3.12", "3.11", "3.10"],
     "authentication": ["basic", "google", "none"],
-    "deployment": ["fly.io", "azure"],
+    "deployment": ["fly.io", "azure"]
 }
