@@ -14,6 +14,7 @@ REMOVE_PATHS = [
     {% if cookiecutter.deployment != 'fly.io' %}"fly.toml",{% endif %}
     {% if cookiecutter.deployment != 'fly.io' %}".github/workflows/deploy_to_fly_io.yml",{% endif %}
     {% if cookiecutter.deployment != 'azure' %}"scripts/deploy_to_azure.sh",{% endif %}
+    {% if cookiecutter.deployment != 'azure' %}".github/workflows/deploy_to_azure.yml",{% endif %}
 ]
 
 for path in REMOVE_PATHS:
