@@ -3,10 +3,11 @@
 # Script to deploy to Azure Container Apps using Azure CLI
 
 # Variables
-RESOURCE_GROUP="{{ cookiecutter.project_slug.replace("_", "-") }}-rg"
-CONTAINER_APP_NAME="{{ cookiecutter.project_slug.replace("_", "-") }}"
-LOCATION="westeurope"
-ACR_NAME="{{ cookiecutter.project_slug.replace("_", "") }}-acr"
+export RESOURCE_GROUP="{{ cookiecutter.project_slug.replace("_", "-") }}-rg"
+export CONTAINER_APP_NAME="{{ cookiecutter.project_slug.replace("_", "-") }}"
+export LOCATION="westeurope"
+export ACR_NAME="{{ cookiecutter.project_slug.replace("_", "") }}-acr"
+export VNET_NAME="{{ cookiecutter.project_slug.replace("_", "-") }}-vnet"
 
 
 echo -e "\033[0;32mChecking if already logged into Azure\033[0m"
@@ -31,14 +32,32 @@ docker push $ACR_NAME.azurecr.io/${CONTAINER_APP_NAME}:latest
 
 echo -e "\033[0;32mChecking if container app environment exists\033[0m"
 if ! az containerapp env show --name "$CONTAINER_APP_NAME-env" --resource-group $RESOURCE_GROUP > /dev/null 2>&1; then
+
+    echo -e "\033[0;32mCreating vnet for container app environment\033[0m"
+    az network vnet create --resource-group $RESOURCE_GROUP \
+      --name $VNET_NAME --location $LOCATION --address-prefix 10.0.0.0/16
+    az network vnet subnet create --resource-group $RESOURCE_GROUP \
+      --vnet-name $VNET_NAME --name infrastructure-subnet \
+      --address-prefixes 10.0.0.0/21
+    az network vnet subnet update --resource-group $RESOURCE_GROUP \
+      --vnet-name $VNET_NAME --name infrastructure-subnet \
+      --delegations Microsoft.App/environments
+
+    INFRASTRUCTURE_SUBNET=`az network vnet subnet show --resource-group ${RESOURCE_GROUP} --vnet-name $VNET_NAME --name infrastructure-subnet --query "id" -o tsv | tr -d '[:space:]'`
+
     echo -e "\033[0;32mCreating container app environment\033[0m"
     az containerapp env create \
       --name "$CONTAINER_APP_NAME-env" \
       --resource-group $RESOURCE_GROUP \
-      --location $LOCATION
+      --location $LOCATION \
+      --infrastructure-subnet-resource-id $INFRASTRUCTURE_SUBNET
 else
     echo -e "\033[0;32mContainer app environment already exists\033[0m"
 fi
+
+# echo -e "\033[0;32mUpdating azure.yml file\033[0m"
+# export SUBSCRIPTION_ID=$(az account show --query id --output tsv)
+# envsubst < azure.yml > azure.yml.tmp && mv azure.yml.tmp azure.yml
 
 echo -e "\033[0;32mCreating container app\033[0m"
 az containerapp create \
@@ -55,22 +74,12 @@ az containerapp create \
   --min-replicas 0 \
   --max-replicas 2 \
   --env-vars OPENAI_API_KEY=$OPENAI_API_KEY
-{% if "nats" in cookiecutter.app_type %}
-# echo -e "\033[0;32mUpdating nats port in container app\033[0m"
-# az containerapp update \
-#   --name $CONTAINER_APP_NAME \
-#   --resource-group $RESOURCE_GROUP \
-#   --add-ports 8000{%- endif %}{% if "fastapi" in cookiecutter.app_type %}
-# echo -e "\033[0;32mUpdating fastapi port in container app\033[0m"
-# az containerapp update \
-#   --name $CONTAINER_APP_NAME \
-#   --resource-group $RESOURCE_GROUP \
-#   --add-ports 8008{%- endif %}{% if "mesop" in cookiecutter.app_type %}
-# echo -e "\033[0;32mUpdating fastapi port in container app\033[0m"
-# az containerapp update \
-#   --name $CONTAINER_APP_NAME \
-#   --resource-group $RESOURCE_GROUP \
-#   --add-ports 8888{%- endif %}
+
+echo -e "\033[0;32mUpdating container app to expose all the service ports\033[0m"
+az containerapp update \
+  --name $CONTAINER_APP_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --yaml azure.yml
 
 echo -e "\033[0;32mSetting up session affinity\033[0m"
 az containerapp ingress sticky-sessions set \
