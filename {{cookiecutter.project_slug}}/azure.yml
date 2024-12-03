@@ -1,0 +1,19 @@
+properties:
+  configuration:
+    activeRevisionsMode: Single
+    ingress:
+      additionalPortMappings:{% if "nats" in cookiecutter.app_type %}
+      - targetPort: 8000
+        external: true
+        # exposedPort: 8000{%- endif %}{% if "fastapi" in cookiecutter.app_type and cookiecutter.app_type != "fastapi" %}
+      - targetPort: 8008
+        external: true
+        # exposedPort: 8008{%- endif %}
+      allowInsecure: false
+      external: true
+      targetPort: {% if cookiecutter.app_type == 'fastapi' %}8008{% else %}8888{% endif %}
+      traffic:
+      - latestRevision: true
+        weight: 100
+      transport: http
+type: Microsoft.App/containerApps

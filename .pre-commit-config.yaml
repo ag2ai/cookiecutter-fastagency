@@ -11,7 +11,10 @@ repos:
           (?x)^(
               ^{{cookiecutter.project_slug}}/.devcontainer/docker-compose.yml|
               ^{{cookiecutter.project_slug}}/.github/workflows/test.yml|
-              ^{{cookiecutter.project_slug}}/.github/workflows/deploy_to_fly_io.yml
+              ^{{cookiecutter.project_slug}}/.github/workflows/deploy_to_fly_io.yml|
+              ^{{cookiecutter.project_slug}}/.github/workflows/deploy_to_azure.yml|
+              ^{{cookiecutter.project_slug}}/.pre-commit-config.yaml|
+              ^{{cookiecutter.project_slug}}/azure.yml
           )
       - id: check-added-large-files
 

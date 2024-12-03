@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
+  # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service, yaml.docker-compose.security.no-new-privileges.no-new-privileges
   python-{{cookiecutter.python_version}}-{{cookiecutter.project_slug}}:
     image: mcr.microsoft.com/devcontainers/python:{{cookiecutter.python_version}}
     container_name: {{cookiecutter.project_slug}}-${USER}-python-{{cookiecutter.python_version}}
@@ -14,8 +14,6 @@ services:
 {% endif %}
     env_file:
       - ./devcontainer.env
-    security_opt:
-      - no-new-privileges:true
     networks:
       - {{cookiecutter.project_slug}}-network
 {% if "nats" in cookiecutter.app_type %}

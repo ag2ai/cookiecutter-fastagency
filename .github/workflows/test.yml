@@ -26,6 +26,7 @@ jobs:
         python-version: ["3.12", "3.11", "3.10"]
         app-type: ["fastapi+mesop", "mesop", "nats+fastapi+mesop", "fastapi"]
         authentication: ["basic", "google", "none"]
+        deployment: ["fly.io", "azure"]
       fail-fast: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -42,7 +43,7 @@ jobs:
         run: pip install cookiecutter
 
       - name: Test Cookiecutter
-        run: ./scripts/test_cookiecutter.sh ${{ matrix.app-type }} ${{ matrix.python-version }} ${{ matrix.authentication }}
+        run: ./scripts/test_cookiecutter.sh ${{ matrix.app-type }} ${{ matrix.python-version }} ${{ matrix.authentication }} ${{ matrix.deployment }}
 
   # https://github.com/marketplace/actions/alls-green#why
   check: # This job does nothing and is only used for the branch protection
