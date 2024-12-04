@@ -15,6 +15,13 @@ echo 'export PATH="$FLYCTL_INSTALL/bin:$PATH"' | tee -a ~/.bashrc ~/.zshrc
 # install azure CLI
 # nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+{% endif %}{% if cookiecutter.deployment == 'aws' %}
+# install AWS CLI
+# nosemgrep: bash.curl.security.curl-pipe-bash.curl-pipe-bash
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+rm -rf aws awscliv2.zip
 {% endif %}
 # check OPENAI_API_KEY environment variable is set
 if [ -z "$OPENAI_API_KEY" ]; then
