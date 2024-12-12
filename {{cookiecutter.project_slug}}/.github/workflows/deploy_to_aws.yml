@@ -1,4 +1,4 @@
-
+{% raw %}
 name: Deploy to AWS Elastic Beanstalk
 
 on:
@@ -21,4 +21,4 @@ jobs:
       - uses: actions/checkout@v4
       # AWS CLI is pre-installed on GitHub Actions
       - name: Deploy to Azure containerapps
-        run: ./scripts/deploy_to_ebs.sh
+        run: ./scripts/deploy_to_ebs.sh{% endraw %}
