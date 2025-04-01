@@ -19,7 +19,7 @@ To create a new FastAgency project using this template, follow these steps:
 2. Run the following command to generate a new FastAgency project:
 
    ```bash
-   cookiecutter https://github.com/airtai/cookiecutter-fastagency.git
+   cookiecutter https://github.com/ag2ai/cookiecutter-fastagency.git
    ```
 
    This command will prompt you to provide some information about your project, such as the project name, author name, and other configuration options.
