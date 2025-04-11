@@ -44,4 +44,4 @@ def simple_workflow(ui: UI, params: dict[str, Any]) -> str:
         max_turns=3,
     )
 
-    return ui.process(response)
+    return ui.process(response)  # type: ignore[no-any-return]
