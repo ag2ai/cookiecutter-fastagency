@@ -1,8 +1,7 @@
 import os
 from typing import Any
 
-from autogen import LLMConfig
-from autogen.agentchat import ConversableAgent
+from autogen import ConversableAgent, LLMConfig
 from fastagency import UI
 from fastagency.runtimes.ag2 import Workflow
 
